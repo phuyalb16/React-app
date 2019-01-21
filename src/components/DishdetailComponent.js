@@ -28,7 +28,7 @@ function RenderDish({ dish }) {
     }
 }
 
-function RenderComments( {comments, addComment, dishId} ) {
+function RenderComments({comments, postComment, dishId}) {
     if (comments !== undefined && comments.length > 0) {
         let formattedComments = comments.map((singleComment) => {
             let options = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -47,7 +47,7 @@ function RenderComments( {comments, addComment, dishId} ) {
                 <ul className="list-unstyled">
                     {formattedComments}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment} />
+                <CommentForm dishId={dishId} postComment={postComment} />
             </div>
         );
     }
@@ -103,7 +103,7 @@ const DishDetail = (props) => {
                 <div className="row">
                     <RenderDish dish={dish} />
                     <RenderComments comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         dishId={props.dish.id}
                     />
                 </div>
@@ -140,7 +140,7 @@ class CommentForm extends Component {
 
     handleComment(values) {
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
